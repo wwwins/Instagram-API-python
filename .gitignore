@@ -2,3 +2,10 @@
 InstagramApi.egg-info/
 dist/
 examples/.env
+
+# osx
+.DS_Store
+# image
+*.png
+*.jpeg
+*.jpg
