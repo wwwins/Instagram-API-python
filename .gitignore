@@ -9,3 +9,5 @@ examples/.env
 *.png
 *.jpeg
 *.jpg
+# pickle file
+*.pkl
