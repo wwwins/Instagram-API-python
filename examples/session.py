@@ -15,10 +15,20 @@ import pickle
 load_dotenv(verbose=True, dotenv_path='./.env')
 api = InstagramAPI(os.getenv('USERNAME'), os.getenv('PASSWORD'))
 
-def saveSession(sess):
+def genSessionObj(obj):
+    return {
+        'token': obj.token,
+        'username_id': obj.username_id,
+        'rank_token': obj.rank_token,
+        'uuid': obj.uuid,
+        'session': obj.s.cookies.get_dict(),
+        'device_id': obj.device_id
+    }
+
+def saveSession(apiObj):
     with open('session.pkl','wb') as f:
         print('Save session.pkl')
-        pickle.dump(sess, f)
+        pickle.dump(genSessionObj(apiObj), f)
 
 def loadSession():
     if Path('session.pkl').is_file():
@@ -42,15 +52,7 @@ if (api.isLoggedIn is not True):
         api.getSelfUserFeed()  # get self user feed
         print(api.LastJson)  # print last response JSON
         print("Login success!!")
-        save_session = {
-            'token': api.token,
-            'username_id': api.username_id,
-            'rank_token': api.rank_token,
-            'uuid': api.uuid,
-            'session': api.s.cookies.get_dict(),
-            'device_id': api.device_id
-        }
-        saveSession(save_session)
+        saveSession(api)
     else:
         print("Can't login!")
 else:
