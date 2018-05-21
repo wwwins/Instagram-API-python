@@ -26,9 +26,9 @@ if __name__ == "__main__":
         for fn in imageGrid.saveGrid(image_fn, div_x, div_y):
             print("Upload {} file to ig".format(fn))
             sleep(randint(1,3))
-            api.uploadPhoto(fn)
+            api.uploadPhoto(str(fn))
             print("Del {} file".format(fn))
-            os.remove(fn)
+            os.remove(str(fn))
     else:
         print("Can't login!")
  
